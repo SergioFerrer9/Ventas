@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Ejercicio1.Models.Categoria>
+
+
+<!--
+
+<div class="container">
+    <table class="table table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.categoriaID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.categoriaNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descripcionCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.imagenCategoria)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoriaID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.categoriaNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.descripcionCategoria)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.imagenCategoria)
+                </td>
+                <td>
+                    @{
+                        string imagen = item.imagenCategoria;
+                        <img src=@Url.Content(imagen) style="width:20%">
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+    </div>
+    -->
+
+
+<h1>Categorias</h1>
+
+<div class="navbar table-dark">
+
+    @foreach (var item in Model)
+    {
+            <div class="col-md-1">
+                <a href="@Url.Action("Index", "Home", new { miCategoria=item.categoriaID})">
+                    @{
+                    string imagen = item.imagenCategoria;
+                    string descripcion = item.categoriaNombre;
+                    <img src=@Url.Content(imagen) style="width:100%">
+                     @descripcion
+                    }
+                </a>
+    </div>
+  
+    }
+</div>
+
+<br />
+<h1>Productos</h1>
+
+<div class="navbar">
+    @foreach (var item in ViewData["Producto"] as IEnumerable<Ejercicio1.Models.Producto>)
+    {
+        <div class="col-md-1">
+            <a href="@Url.Action("Index", "Home", new { miCategoria = item.categoryID, ProductoSelecionado = item.productID })">
+            @{
+                
+                 string descripcion = item.productName;
+                 string imagen = item.picture;
+                 <img src=@Url.Content(imagen) style="width:100%">
+                 @descripcion
+            }
+            </a>
+       </div>
+    }
+</div>
+
+<div class="navbar">
+    <div class="col-md-3">
+        @{
+            Ejercicio1.Models.Producto detalle = ViewData["detalle"] as Ejercicio1.Models.Producto;
+            Ejercicio1.Models.Categoria detallecategoria = ViewData["DetalleCategoria"] as Ejercicio1.Models.Categoria;
+            
+            <img src=@Url.Content(detalle.picture) style="width:100%">
+            <label>@detalle.productName</label>
+            <span>@detalle.unitPrice</span>
+           
+             <br />
+            <a href="@Url.Action("AregarOrden", "Home", new { categoriaId = detalle.categoryID, producto = detalle.productName, categoria = detallecategoria.categoriaNombre, descripcion = detallecategoria.descripcionCategoria, productoId = detalle.productID, precioUnitario = detalle.unitPrice, cantidad = 3, total = 100 })">
+                    <input type="button" value="Agregar" />
+  
+            </a>
+
+}
+
+    </div>
+ </div>
+
